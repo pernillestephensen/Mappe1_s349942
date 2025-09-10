@@ -4,13 +4,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.mappe1_s349942.ui.pages.MainPage
 import com.example.mappe1_s349942.ui.theme.Mappe1_s349942Theme
 
 class MainActivity : ComponentActivity() {
@@ -19,21 +17,17 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             Mappe1_s349942Theme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                    MainPage()
             }
         }
     }
 }
 
+
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
+fun Greeting(modifier: Modifier = Modifier) {
     Text(
-        text = "Hello $name!",
+        text = "LEARN MATH!",
         modifier = modifier
     )
 }
@@ -42,6 +36,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun GreetingPreview() {
     Mappe1_s349942Theme {
-        Greeting("Android")
+        Greeting()
     }
 }
