@@ -17,25 +17,34 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.mappe1_s349942.Greeting
+import com.example.mappe1_s349942.ui.theme.Mappe1_s349942Theme
 
 @Preview(showBackground = true)
 @Composable
 fun MainPage(modifier: Modifier = Modifier) {
-    var shouldShowOnboarding by rememberSaveable { mutableStateOf(true) }
+    var currentScreen by rememberSaveable { mutableStateOf((Screen.Onboarding)) }
 
     Surface(modifier, color = MaterialTheme.colorScheme.background) {
-        if (shouldShowOnboarding) {
-            OnboardingScreen(onContinueClicked = { shouldShowOnboarding = false })
-        } else {
-            Greeting()
+        when (currentScreen) {
+            Screen.Onboarding -> Onboarding(
+                onStartGameClicked = { currentScreen = Screen.Game },
+                onAboutGameClicked = { currentScreen = Screen.About },
+                onPreferencesClicked = { currentScreen = Screen.Preferences }
+            )
+
+            Screen.Game -> Game()
+            Screen.About -> About()
+            Screen.Preferences -> Preferences()
         }
     }
 }
 
+
 @Composable
-fun OnboardingScreen(
-    onContinueClicked: () -> Unit,
+fun Onboarding(
+    onStartGameClicked: () -> Unit,
+    onAboutGameClicked: () -> Unit,
+    onPreferencesClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -46,21 +55,29 @@ fun OnboardingScreen(
         Text("LEARN MATH")
         Button(
             modifier = Modifier.padding(vertical = 24.dp),
-            onClick = onContinueClicked
+            onClick = onStartGameClicked
         ) {
             Text("START GAME")
         }
         Button(
             modifier = Modifier.padding(vertical = 24.dp),
-            onClick = onContinueClicked
+            onClick = onAboutGameClicked
         ) {
             Text("ABOUT GAME")
         }
         Button(
             modifier = Modifier.padding(vertical = 24.dp),
-            onClick = onContinueClicked
+            onClick = onPreferencesClicked
         ) {
             Text("PREFERENCES")
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun OnboardingPreview() {
+    Mappe1_s349942Theme {
+        Onboarding(onStartGameClicked = {}, onAboutGameClicked = {}, onPreferencesClicked = {})
     }
 }
