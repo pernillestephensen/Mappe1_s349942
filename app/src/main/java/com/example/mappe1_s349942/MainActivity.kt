@@ -4,11 +4,19 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.mappe1_s349942.ui.pages.MainPage
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.mappe1_s349942.ui.pages.OmSpillet
+import com.example.mappe1_s349942.ui.pages.Preferanser
+import com.example.mappe1_s349942.ui.pages.Spill
+import com.example.mappe1_s349942.ui.pages.StartSkjerm
 import com.example.mappe1_s349942.ui.theme.Mappe1_s349942Theme
 
 class MainActivity : ComponentActivity() {
@@ -17,25 +25,37 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             Mappe1_s349942Theme {
-                    MainPage()
+                Scaffold(modifier = Modifier.fillMaxSize()) {innerPadding ->
+                    MyApp(modifier = Modifier.padding(innerPadding))
+                }
             }
         }
     }
 }
 
-
 @Composable
-fun Greeting(modifier: Modifier = Modifier) {
-    Text(
-        text = "LEARN MATH!",
-        modifier = modifier
-    )
+fun MyApp(modifier: Modifier = Modifier){
+    val navController = rememberNavController()
+    NavigationGraph(navController = navController)
 }
 
-@Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
-    Mappe1_s349942Theme {
-        Greeting()
+fun NavigationGraph(navController: NavHostController) {
+    NavHost(navController  = navController, startDestination="startSkjerm")
+    {
+        composable ("startSkjerm"){
+            StartSkjerm(navController = navController)
+        }
+        composable("startSpillet"){
+            Spill(navController = navController)
+        }
+        composable("omSpillet"){
+            OmSpillet(navController = navController)
+        }
+        composable("preferanser"){
+            Preferanser(navController = navController)
+        }
     }
 }
+
+
