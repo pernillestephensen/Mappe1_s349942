@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Mappe1_s349942</string>
+    <string name="start_spill">Start spill</string>
+    <string name="om_spillet">Om spillet</string>
 </resources>
+
+<!--<resources>-->
+<!--<string name="app_name">Mappe1_s349942</string>-->
+<!--<string name="start_spill">Spiel starten</string>-->
+<!--<string name="om_spillet">Über das Spiel</string>-->
+<!--<string name="preferanser">Einstellungen</string>-->
+<!--</resources>-->
