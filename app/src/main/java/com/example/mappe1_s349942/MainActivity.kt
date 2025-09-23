@@ -47,7 +47,7 @@ fun NavigationGraph(navController: NavHostController) {
             StartSkjerm(navController = navController)
         }
         composable("startSpillet"){
-            Spill(navController = navController)
+            Spill(navController: NavController)
         }
         composable("omSpillet"){
             OmSpillet(navController = navController)
