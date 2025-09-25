@@ -1,5 +1,6 @@
 package com.example.mappe1_s349942.ui.pages
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import com.example.mappe1_s349942.R
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,13 +10,19 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.mappe1_s349942.ui.Skjerm
@@ -23,52 +30,68 @@ import com.example.mappe1_s349942.ui.Skjerm
 @Composable
 fun StartSkjerm(navController: NavController) {
     Column(
-        modifier = Modifier.fillMaxSize().padding(24.dp),
+        modifier = Modifier.fillMaxSize().padding(24.dp).background(Color(0xFFCFFFE2)),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Image(painter = painterResource(id = R.drawable.app_icon), contentDescription = null, modifier = Modifier.size(120.dp))
+        Image(
+            painter = painterResource(id = R.drawable.app_icon),
+            contentDescription = null,
+            modifier = Modifier
+                .size(250.dp)
+                .clip(RoundedCornerShape(55.dp))
+        )
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        Button(onClick = { navController.navigate(Skjerm.Spill.rute) }, modifier = Modifier.fillMaxWidth()) {
-            Text(text = "Start spill", style = MaterialTheme.typography.titleMedium)
+        Button(
+            onClick = { navController.navigate(Skjerm.Spill.rute) },
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFF2CAB5B),
+                contentColor = Color.White
+            )
+        ) {
+            Text(
+                text = "START SPILL",
+                style = MaterialTheme.typography.titleLarge
+            )
         }
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        Button(onClick = { navController.navigate(Skjerm.OmSpillet.rute) }, modifier = Modifier.fillMaxWidth()) {
-            Text(text = "Om spillet")
+        Button(
+            onClick = { navController.navigate(Skjerm.OmSpillet.rute) },
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFF23B7BA),
+                contentColor = Color.White)
+            ) {
+            Text(
+                text = "OM SPILLET",
+                style = MaterialTheme.typography.titleMedium
+            )
         }
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        Button(onClick = { navController.navigate(Skjerm.Preferanser.rute) }, modifier = Modifier.fillMaxWidth()) {
-            Text(text = "Preferanser")
+        Button(
+            onClick = { navController.navigate(Skjerm.Preferanser.rute) },
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFF23B7BA),
+                contentColor = Color.White)
+            ) {
+            Text(
+                text = "PREFERANSER",
+                style = MaterialTheme.typography.titleMedium
+            )
         }
     }
 }
-//@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-//@Composable
-//fun StartSkjerm(navController: NavController) {
-//    Scaffold(
-//        content = { innerPadding -> // Add paddingValues parameter
-//            Column(
-//                modifier = Modifier.fillMaxSize(),
-//                verticalArrangement = Arrangement.Center,
-//                horizontalAlignment = Alignment.CenterHorizontally
-//            ) {
-//                Text(text = "LÆR MATTE")
-//                Button(onClick = { navController.navigate("startSpillet") }) {
-//                    Text("START SPILLET")
-//                }
-//                Button(onClick = { navController.navigate("omSpillet") }) {
-//                    Text("OM SPILLET")
-//                }
-//                Button(onClick = { navController.navigate("preferanser") }) {
-//                    Text("PREFERANSER")
-//                }
-//            }
-//        }
-//    )
-//}
+
+@Composable
+@Preview
+fun StartSkjermPreview() {
+    StartSkjerm(navController = NavController(LocalContext.current))
+}

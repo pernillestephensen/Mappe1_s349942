@@ -88,9 +88,9 @@ class SpillViewModel(app: Application) : AndroidViewModel(app) {
         val correct = alleSvar[idx]
 
         if (user == correct) {
-            _tilbakemelding.value = "Riktig: $correct"
+            _tilbakemelding.value = "riktig"
         } else {
-            _tilbakemelding.value = "Feil:$correct"
+            _tilbakemelding.value = "feil:$correct"
         }
     }
 
@@ -114,31 +114,3 @@ class SpillViewModel(app: Application) : AndroidViewModel(app) {
         return (selectedIndices.size - _spmIndeks.value)
     }
 }
-
-
-//    fun hentOppgave(): String {
-//        return oppgaver.random()
-//    }
-//
-//    @Composable
-//    fun AntallSpm(modifier: Modifier = Modifier) {
-//        val prefViewModel: PrefViewModel = viewModel()
-//        var felt by remember { mutableStateOf("") }
-//        Column(
-//            Modifier.fillMaxSize(),
-//            horizontalAlignment = Alignment.CenterHorizontally,
-//            verticalArrangement = Arrangement.Center
-//        ) {
-//            Text(text = "Velg antall regnestykker:")
-//            Button(onClick = { prefViewModel.settPref(felt) }) {
-//                Text(text = "5")
-//            }
-//            Button(onClick = { prefViewModel.settPref(felt) }) {
-//                Text(text = "10")
-//            }
-//            Button(onClick = { prefViewModel.settPref(felt) }) {
-//                Text(text = "15")
-//            }
-//        }
-//    }
-//}
