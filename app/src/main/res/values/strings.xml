@@ -1,7 +1,35 @@
 <resources>
     <string name="app_name">Mappe1_s349942</string>
     <string name="start_spill">Start spill</string>
+    <string name="start_spill_capital">START SPILL</string>
     <string name="om_spillet">Om spillet</string>
+    <string name="om_spillet_capital">OM SPILLET</string>
+    <string name="om_spillet_text">
+Dette er et mattespill for barn i alderen 6–8 år. Spillet består av enkle multiplikasjonsoppgaver med små tall. Trykk på tallene for å skrive inn svar.
+    </string>
+    <string name="tilbake">Tilbake</string>
     <string name="preferanser">Preferanser</string>
+    <string name="preferanser_capital">PREFERANSER</string>
+    <string name="antall_oppgaver">"Velg antall oppgaver per spill:"</string>
+    <string name="oppgaver">oppgaver</string>
+    <string name="avslutt">Avslutt</string>
+    <string name="avslutt_spmtegn">Avslutt?</string>
+    <string name="avslutt_popup">"Vil du avslutte spillet? Fremdrift vil ikke bli lagret."</string>
+    <string name="nei">Nei</string>
+    <string name="ja">Ja</string>
+    <string name="sporsmal">Spørsmål:</string>
+    <string name="igjen">Igjen:</string>
+    <string name="spill_ferdig">Spillet er ferdig. Superbra jobba!</string>
+    <string name="skriv_inn_svar">SKRIV INN SVARET ↓</string>
+    <string name="riktig_svar">Riktig svar! Kjempebra jobba</string>
+    <string name="feil_svar">Feil svar. Prøv igjen, dette klarer du!</string>
+    <string name="skriv_svar_melding">Skriv inn et svar først!</string>
+    <string name="svar">Svar</string>
+    <string name="slett">Slett</string>
+    <string name="neste_oppgave">Neste oppgave</string>
+    <string name="spill_ferdig_tittel">Spillet er ferdig!</string>
+    <string name="spill_ferdig_resultat">Du klarte %1\$d av %2\$d oppgaver riktig. Kjempebra jobbet, du er rå!"</string>
+    <string name="spill_igjen">Spill igjen</string>
+    <string name="alle_oppgaver_brukt">Alle oppgaver er brukt opp!</string>
 </resources>
 

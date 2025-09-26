@@ -11,34 +11,51 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.mappe1_s349942.R
 
 @Composable
 fun OmSpillet(navController: NavController) {
-    Column(modifier = Modifier.fillMaxSize().padding(24.dp), verticalArrangement = Arrangement.Top) {
-        Text("Om spillet", style = MaterialTheme.typography.titleLarge)
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(24.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+
+        Text(
+            text = stringResource(R.string.om_spillet),
+            style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Center
+        )
+
         Spacer(modifier = Modifier.height(12.dp))
-        Text("Dette er et mattespill for barn. Spillet består av multiplikasjon (+), subtraksjon (-) og divisjon (/) av heltall. " +
-                "Trykk på tallene for å skrive inn svar. Farge og ikoner gir tilbakemelding.")
+
+
+        Text(
+            text = stringResource(R.string.om_spillet_text),
+            textAlign = TextAlign.Center
+        )
+
         Spacer(modifier = Modifier.height(24.dp))
+
         Button(
             onClick = { navController.popBackStack() },
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFFB523BA),
+                containerColor = Color(0xFF23B7BA),
                 contentColor = Color.White
-            )) {
-            Text("Tilbake")
+            )
+        ) {
+            Text(stringResource(R.string.tilbake))
         }
     }
-}
-
-@Composable
-@Preview
-fun OmSpillet() {
-    OmSpillet(navController = NavController(LocalContext.current))
 }

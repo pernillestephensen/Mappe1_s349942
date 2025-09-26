@@ -15,6 +15,7 @@ import com.example.mappe1_s349942.ui.pages.Preferanser
 import com.example.mappe1_s349942.ui.pages.Spill
 import com.example.mappe1_s349942.ui.pages.StartSkjerm
 import com.example.mappe1_s349942.ui.theme.Mappe1_s349942Theme
+import com.example.mappe1_s349942.ui.pages.ResultatSkjerm
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,36 +31,16 @@ class MainActivity : ComponentActivity() {
                         composable(Skjerm.Spill.rute){Spill(navController)}
                         composable(Skjerm.OmSpillet.rute){OmSpillet(navController)}
                         composable(Skjerm.Preferanser.rute){Preferanser(navController)}
+                        composable(Skjerm.Resultat.rute) { backStackEntry ->
+                            val riktige = backStackEntry.arguments?.getString("riktige")?.toIntOrNull() ?: 0
+                            val totalt = backStackEntry.arguments?.getString("totalt")?.toIntOrNull() ?: 0
+                            ResultatSkjerm(navController, riktige, totalt)
+                        }
                     }
                 }
             }
         }
     }
 }
-
-//@Composable
-//fun MyApp(modifier: Modifier = Modifier){
-//    val navController = rememberNavController()
-//    NavigationGraph(navController = navController)
-//}
-//
-//@Composable
-//fun NavigationGraph(navController: NavHostController) {
-//    NavHost(navController  = navController, startDestination="startSkjerm")
-//    {
-//        composable ("startSkjerm"){
-//            StartSkjerm(navController = navController)
-//        }
-//        composable("startSpillet"){
-//            Spill(navController: NavController)
-//        }
-//        composable("omSpillet"){
-//            OmSpillet(navController = navController)
-//        }
-//        composable("preferanser"){
-//            Preferanser(navController = navController)
-//        }
-//    }
-//}
 
 

@@ -3,5 +3,33 @@
     <string name="app_name">Mappe1_s349942</string>
     <string name="start_spill">Spiel starten</string>
     <string name="om_spillet">Über das Spiel</string>
+    <string name="om_spillet_capital">ÜBER DAS SPIEL</string>
+    <string name="om_spillet_text">
+Dies ist ein Mathe-Spiel für Kinder im Alter von 6–8 Jahren. Das Spiel besteht aus einfachen Multiplikationsaufgaben mit kleinen Zahlen. Tippe auf die Zahlen, um die Antwort einzugeben.
+    </string>
+    <string name="tilbake">Zurück</string>
     <string name="preferanser">Einstellungen</string>
+    <string name="preferanser_capital">EINSTELLUNGEN</string>
+    <string name="antall_oppgaver">"Anzahl der Aufgaben pro Spiel auswählen:"</string>
+    <string name="oppgaver">Aufgaben</string>
+    <string name="avslutt">Abbrechen</string>
+    <string name="avslutt_spmtegn">Abbrechen?</string>
+    <string name="avslutt_popup">"Möchtest du das Spiel abbrechen? Die Daten werden nicht gespeichert."</string>
+    <string name="nei">Nein</string>
+    <string name="ja">Ja</string>
+    <string name="sporsmal">Frage:</string>
+    <string name="igjen">Überreste:</string>
+    <string name="spill_ferdig">Das Spiel ist fertig. Toll Arbeit!</string>
+    <string name="skriv_inn_svar">ANTWORT EINGEBEN ↓</string>
+    <string name="riktig_svar">Richtige Antwort! Gute Arbeit!</string>
+    <string name="feil_svar">Falsch. Versuchen Sie es noch einmal, Sie schaffen das!</string>
+    <string name="skriv_svar_melding">Geben Sie zuerst eine Antwort ein!</string>
+    <string name="svar">OK</string>
+    <string name="slett">Zurück</string>
+    <string name="neste_oppgave">Nächste Aufgabe</string>
+    <string name="start_spill_capital">SPIEL STARTEN</string>
+    <string name="spill_ferdig_tittel">Das Spiel ist vorbei!</string>
+    <string name="spill_ferdig_resultat">Sie haben %1\$d von %2\$d Aufgaben korrekt erledigt. Tolle Arbeit, du bist großartig!</string>
+    <string name="spill_igjen">Erneut abspielen</string>
+    <string name="alle_oppgaver_brukt">Alle Aufgaben sind aufgebraucht!</string>
 </resources>

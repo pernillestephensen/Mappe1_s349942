@@ -20,20 +20,24 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.mappe1_s349942.ui.Skjerm
 
+
 @Composable
 fun StartSkjerm(navController: NavController) {
     Column(
-        modifier = Modifier.fillMaxSize().padding(24.dp).background(Color(0xFFCFFFE2)),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(24.dp)
+            .background(Color(0xFFCFFFE2)),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+        //Bilde generert av Gemini
         Image(
             painter = painterResource(id = R.drawable.app_icon),
             contentDescription = null,
@@ -44,6 +48,7 @@ fun StartSkjerm(navController: NavController) {
 
         Spacer(modifier = Modifier.height(20.dp))
 
+        //Navigering til "Start spill"
         Button(
             onClick = { navController.navigate(Skjerm.Spill.rute) },
             modifier = Modifier.fillMaxWidth(),
@@ -53,13 +58,14 @@ fun StartSkjerm(navController: NavController) {
             )
         ) {
             Text(
-                text = "START SPILL",
+                text = stringResource(R.string.start_spill_capital),
                 style = MaterialTheme.typography.titleLarge
             )
         }
 
         Spacer(modifier = Modifier.height(12.dp))
 
+        //Navigering til "Om spill"
         Button(
             onClick = { navController.navigate(Skjerm.OmSpillet.rute) },
             modifier = Modifier.fillMaxWidth(),
@@ -68,13 +74,14 @@ fun StartSkjerm(navController: NavController) {
                 contentColor = Color.White)
             ) {
             Text(
-                text = "OM SPILLET",
+                text = stringResource(R.string.om_spillet_capital),
                 style = MaterialTheme.typography.titleMedium
             )
         }
 
         Spacer(modifier = Modifier.height(12.dp))
 
+        //Navigering til "Preferanser"
         Button(
             onClick = { navController.navigate(Skjerm.Preferanser.rute) },
             modifier = Modifier.fillMaxWidth(),
@@ -83,15 +90,9 @@ fun StartSkjerm(navController: NavController) {
                 contentColor = Color.White)
             ) {
             Text(
-                text = "PREFERANSER",
+                text = stringResource(R.string.preferanser_capital),
                 style = MaterialTheme.typography.titleMedium
             )
         }
     }
-}
-
-@Composable
-@Preview
-fun StartSkjermPreview() {
-    StartSkjerm(navController = NavController(LocalContext.current))
 }
