@@ -22,7 +22,7 @@ Dies ist ein Mathe-Spiel für Kinder im Alter von 6–8 Jahren. Das Spiel besteh
     <string name="spill_ferdig">Das Spiel ist fertig. Toll Arbeit!</string>
     <string name="skriv_inn_svar">ANTWORT EINGEBEN ↓</string>
     <string name="riktig_svar">Richtige Antwort! Gute Arbeit!</string>
-    <string name="feil_svar">Falsch. Versuchen Sie es noch einmal, Sie schaffen das!</string>
+    <string name="feil_svar">Falsch, nochmal! Du schaffst das!</string>
     <string name="skriv_svar_melding">Geben Sie zuerst eine Antwort ein!</string>
     <string name="svar">OK</string>
     <string name="slett">Zurück</string>
