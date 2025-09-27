@@ -54,7 +54,6 @@ fun Spill(navController: NavController) {
 
     val current = (spillVm.spmIndeks.value + 1).coerceAtMost(prefVm.antall.value)
 
-
     var showExitDialog by remember { mutableStateOf(false) }
 
     LaunchedEffect(key1 = prefVm.antall.value) {
@@ -90,6 +89,7 @@ fun Spill(navController: NavController) {
             }
         )
     }
+
     // Hoved UI
     Column(
         modifier = Modifier
@@ -97,7 +97,7 @@ fun Spill(navController: NavController) {
             .padding(30.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        //Antall oppgaver og oppgaver som gjenstår (e.g. Spørsmål: 4/10 Igjen: 6)
+        //Antall oppgaver og oppgaver som gjenstår
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -107,7 +107,7 @@ fun Spill(navController: NavController) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = stringResource(R.string.sporsmal) + " $current/${prefVm.antall.value}",
+                text = stringResource(R.string.sporsmal) + " $current/${if (spillVm.ingenFlereSporsmal.value) spillVm.spmIndeks.value else prefVm.antall.value}",
                 fontWeight = FontWeight.Bold
             )
 
@@ -129,122 +129,72 @@ fun Spill(navController: NavController) {
         ) {
             Text(
                 text = spillVm.oppgaveTekst.value,
-                fontSize = 30.sp,
-                fontWeight = FontWeight.ExtraBold
+                fontSize = if (spillVm.ingenFlereSporsmal.value) 24.sp else 30.sp,
+                fontWeight = FontWeight.ExtraBold,
+                textAlign = TextAlign.Center,
+                color = if (spillVm.ingenFlereSporsmal.value) Color(0xFF666666) else Color.Black
             )
         }
 
         // Input fra bruker og tilbakemelding
-        Column {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(56.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = spillVm.inputText.value.ifEmpty { stringResource(R.string.skriv_inn_svar) },
-                    fontSize = 25.sp,
-                    fontWeight = FontWeight.Bold
-                )
-            }
-            spillVm.tilbakemelding.value?.let { fb ->
-                when {
-                    fb == "riktig" -> {
-                        Box(
-                            modifier = Modifier.fillMaxWidth().height(40.dp),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text(
-                                stringResource(R.string.riktig_svar),
-                                color = Color(0xFF2E7D32),
-                                fontWeight = FontWeight.Bold,
-                                textAlign = TextAlign.Center,
-                                fontSize = 18.sp
-                            )
-                        }
-                    }
-
-                    fb.startsWith("feil:") -> {
-                        Box(
-                            modifier = Modifier.fillMaxWidth().height(40.dp),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text(
-                                stringResource(R.string.feil_svar),
-                                color = Color(0xFFB00020),
-                                fontWeight = FontWeight.Bold,
-                                textAlign = TextAlign.Center,
-                                fontSize = 18.sp
-                            )
-                        }
-                    }
-
-                    fb == "tomt" -> {
-                        Box(
-                            modifier = Modifier.fillMaxWidth().height(40.dp),
-                            contentAlignment = Alignment.Center
-                        ){
-                        Text(
-                            stringResource(R.string.skriv_svar_melding),
-                            color = Color(0xFFB00020),
-                            fontWeight = FontWeight.Bold,
-                            textAlign = TextAlign.Center,
-                            fontSize = 18.sp
-                            )
-                        }
-                    }
-                }
-            }
-        }
-
-
-        // Nummerknapper (0-9) i grid 3x4
-        Column(
-            modifier = Modifier.fillMaxWidth().padding(15.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            val rows = listOf(listOf(1, 2, 3), listOf(4, 5, 6), listOf(7, 8, 9), listOf(-1, 0, -2))
-            rows.forEach { row ->
-                Row(
+        if (!spillVm.ingenFlereSporsmal.value) {
+            Column {
+                Box(
                     modifier = Modifier
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                )
-                {
-                    row.forEach { v ->
-                        when (v) {
-                            -2 -> Button( //svar-knapp
-                                onClick = { spillVm.sendInnSvar() },
-                                modifier = Modifier.weight(1f).padding(5.dp),
-                                colors = ButtonDefaults.buttonColors(
-                                    containerColor = Color(0xFF59BA89),
-                                    contentColor = Color.White
-                                )
-
+                        .fillMaxWidth()
+                        .height(56.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = spillVm.inputText.value.ifEmpty { stringResource(R.string.skriv_inn_svar) },
+                        fontSize = 25.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+                spillVm.tilbakemelding.value?.let { fb ->
+                    when {
+                        fb == "riktig" -> {
+                            Box(
+                                modifier = Modifier.fillMaxWidth().height(40.dp),
+                                contentAlignment = Alignment.Center
                             ) {
-                                Text(stringResource(R.string.svar))
+                                Text(
+                                    stringResource(R.string.riktig_svar),
+                                    color = Color(0xFF2E7D32),
+                                    fontWeight = FontWeight.Bold,
+                                    textAlign = TextAlign.Center,
+                                    fontSize = 18.sp
+                                )
                             }
-                            -1 -> Button( //slett-knapp
-                                onClick = { spillVm.slettTall() },
-                                modifier = Modifier.weight(1f).padding(5.dp),
-                                colors = ButtonDefaults.buttonColors(
-                                    containerColor = Color(0xFFE53935),
-                                    contentColor = Color.White
-                                )
-                            ) {
-                                Text(stringResource(R.string.slett))
-                            }
+                        }
 
-                            else -> Button( //alle tallene
-                                onClick = { spillVm.leggTilTall(v) },
-                                modifier = Modifier.weight(1f).padding(5.dp),
-                                colors = ButtonDefaults.buttonColors(
-                                    containerColor = Color(0xFF5899D1),
-                                    contentColor = Color.White
-                                )
+                        fb.startsWith("feil:") -> {
+                            Box(
+                                modifier = Modifier.fillMaxWidth().height(40.dp),
+                                contentAlignment = Alignment.Center
                             ) {
-                                Text("$v",)
+                                Text(
+                                    stringResource(R.string.feil_svar),
+                                    color = Color(0xFFB00020),
+                                    fontWeight = FontWeight.Bold,
+                                    textAlign = TextAlign.Center,
+                                    fontSize = 18.sp
+                                )
+                            }
+                        }
+
+                        fb == "tomt" -> {
+                            Box(
+                                modifier = Modifier.fillMaxWidth().height(40.dp),
+                                contentAlignment = Alignment.Center
+                            ){
+                                Text(
+                                    stringResource(R.string.skriv_svar_melding),
+                                    color = Color(0xFFB00020),
+                                    fontWeight = FontWeight.Bold,
+                                    textAlign = TextAlign.Center,
+                                    fontSize = 18.sp
+                                )
                             }
                         }
                     }
@@ -252,25 +202,107 @@ fun Spill(navController: NavController) {
             }
         }
 
-        Spacer(modifier = Modifier.height(20.dp))
+        // Nummerknapper (0-9) i grid 3x4, svar-knapp og slett-knapp
+        if (!spillVm.ingenFlereSporsmal.value) {
+            Column(
+                modifier = Modifier.fillMaxWidth().padding(15.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                val rows = listOf(listOf(1, 2, 3), listOf(4, 5, 6), listOf(7, 8, 9), listOf(-1, 0, -2))
+                rows.forEach { row ->
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    )
+                    {
+                        row.forEach { v ->
+                            when (v) {
+                                -2 -> Button(
+                                    onClick = { spillVm.sendInnSvar() },
+                                    modifier = Modifier.weight(1f).padding(5.dp),
+                                    colors = ButtonDefaults.buttonColors(
+                                        containerColor = Color(0xFF59BA89),
+                                        contentColor = Color.White
+                                    )
 
-        //Knapp for neste oppgave
-        Row(modifier = Modifier.fillMaxWidth().padding(15.dp)) {
+                                ) {
+                                    Text(stringResource(R.string.svar))
+                                }
+                                -1 -> Button(
+                                    onClick = { spillVm.slettTall() },
+                                    modifier = Modifier.weight(1f).padding(5.dp),
+                                    colors = ButtonDefaults.buttonColors(
+                                        containerColor = Color(0xFFE53935),
+                                        contentColor = Color.White
+                                    )
+                                ) {
+                                    Text(stringResource(R.string.slett))
+                                }
+
+                                else -> Button(
+                                    onClick = { spillVm.leggTilTall(v) },
+                                    modifier = Modifier.weight(1f).padding(5.dp),
+                                    colors = ButtonDefaults.buttonColors(
+                                        containerColor = Color(0xFF5899D1),
+                                        contentColor = Color.White
+                                    )
+                                ) {
+                                    Text("$v",)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(20.dp))
+        }
+
+// Knapp for neste oppgave / gå til resultater
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(15.dp)
+        ) {
             Button(
-                onClick = { spillVm.nesteSpm() },
+                onClick = {
+                    when {
+                        spillVm.ingenFlereSporsmal.value -> {
+                            navController.navigate(
+                                Skjerm.Resultat.lagRute(spillVm.riktige.value, prefVm.antall.value)
+                            )
+                        }
+                        spillVm.spillOver.value -> {
+                            navController.navigate(
+                                Skjerm.Resultat.lagRute(spillVm.riktige.value, prefVm.antall.value)
+                            )
+                        }
+                        else -> {
+                            spillVm.nesteSpm()
+                        }
+                    }
+                },
                 modifier = Modifier.weight(2f),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF93BDC7),
+                    containerColor = if (spillVm.ingenFlereSporsmal.value || spillVm.spillOver.value)
+                        Color(0xFF59BA89) else Color(0xFF93BDC7),
                     contentColor = Color.White
                 )
             ) {
-                Text(stringResource(R.string.neste_oppgave))
+                Text(
+                    text = when {
+                        spillVm.ingenFlereSporsmal.value -> stringResource(R.string.se_resultater)
+                        spillVm.spillOver.value -> stringResource(R.string.se_resultater)
+                        else -> stringResource(R.string.neste_oppgave)
+                    }
+                )
             }
         }
 
         Spacer(modifier = Modifier.weight(1f))
 
-        //Knapp for avslutt spill (viser exit-popup)
+        //Avslutt-knapp
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -287,18 +319,5 @@ fun Spill(navController: NavController) {
                 Text(stringResource(R.string.avslutt))
             }
         }
-
-        //Navigerer til side som viser score
-        LaunchedEffect(spillVm.spillOver.value) {
-            if (spillVm.spillOver.value && !spillVm.avsluttetManuelt.value) {
-                navController.navigate(
-                    Skjerm.Resultat.lagRute(spillVm.riktige.value, prefVm.antall.value)
-                )
-            }
-        }
-
     }
 }
-
-
-

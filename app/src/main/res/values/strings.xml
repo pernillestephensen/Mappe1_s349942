@@ -31,5 +31,8 @@ Dette er et mattespill for barn i alderen 6–8 år. Spillet består av enkle mu
     <string name="spill_ferdig_resultat">Du klarte %1\$d av %2\$d oppgaver riktig. Kjempebra jobbet, du er rå!"</string>
     <string name="spill_igjen">Spill igjen</string>
     <string name="alle_oppgaver_brukt">Alle oppgaver er brukt opp!</string>
+    <string name="start_pa_nytt">Start på nytt</string>
+    <string name="se_resultater">Gå til resultater</string>
+    <string name="ingen_tilgjengelige_spm">Ingen flere tilgjengelige spørsmål</string>
 </resources>
 

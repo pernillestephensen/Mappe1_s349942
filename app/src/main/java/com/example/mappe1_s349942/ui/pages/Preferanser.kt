@@ -44,7 +44,7 @@ fun Preferanser(navController: NavController) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
-                    .fillMaxWidth(0.7f) // gjør radene smalere for å se mer sentrert ut
+                    .fillMaxWidth(0.7f)
                     .padding(vertical = 8.dp)
             ) {
                 RadioButton(

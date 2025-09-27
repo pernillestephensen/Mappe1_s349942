@@ -30,25 +30,36 @@ class SpillViewModel(app: Application) : AndroidViewModel(app) {
     val spillOver: State<Boolean> = _spillOver
 
     private val _avsluttetManuelt = mutableStateOf(false)
-    val avsluttetManuelt: State<Boolean> = _avsluttetManuelt
+
+    private val _ingenFlereSporsmal = mutableStateOf(false)
+    val ingenFlereSporsmal: State<Boolean> = _ingenFlereSporsmal
 
     private var selectedIndices: MutableList<Int> = mutableListOf()
     private var sessionSize: Int = 5
     private val _riktige = mutableStateOf(0)
     val riktige: State<Int> = _riktige
 
+    private val context = app
+
+    private var brukteDenneOkta: MutableSet<Int> = mutableSetOf()
+
     fun startSpill(preferredSize: Int) {
-        sessionSize = preferredSize.coerceIn(1, alleOppgaver.size)
+        sessionSize = preferredSize
         _spillOver.value = false
         _tilbakemelding.value = null
         _inputTekst.value = ""
         _spmIndeks.value = 0
         _riktige.value = 0
+        _avsluttetManuelt.value = false
+        _ingenFlereSporsmal.value = false
+
+        brukteDenneOkta.clear()
 
         selectedIndices = (alleOppgaver.indices)
             .shuffled(Random(System.currentTimeMillis()))
-            .take(sessionSize)
+            .take(sessionSize.coerceAtMost(alleOppgaver.size))
             .toMutableList()
+
         finnSpm()
     }
 
@@ -62,24 +73,26 @@ class SpillViewModel(app: Application) : AndroidViewModel(app) {
         _oppgaveTekst.value = alleOppgaver[idx]
         _inputTekst.value = ""
         _tilbakemelding.value = null
+        _ingenFlereSporsmal.value = false
+
+        brukteDenneOkta.add(idx)
     }
 
     fun leggTilTall(d: Int) {
-        if (_spillOver.value) return
-        // begrens lengde (f. eks. maks 3 siffer)
+        if (_spillOver.value || _ingenFlereSporsmal.value) return
         if (_inputTekst.value.length >= 3) return
         _inputTekst.value += d.toString()
     }
 
     fun slettTall() {
-        if (_spillOver.value) return
+        if (_spillOver.value || _ingenFlereSporsmal.value) return
         if (_inputTekst.value.isNotEmpty()) {
             _inputTekst.value = _inputTekst.value.dropLast(1)
         }
     }
 
     fun sendInnSvar() {
-        if (_spillOver.value) return
+        if (_spillOver.value || _ingenFlereSporsmal.value) return
         val user = _inputTekst.value
         if (user.isBlank()) {
             _tilbakemelding.value = "tomt"
@@ -97,23 +110,34 @@ class SpillViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun nesteSpm() {
-        // hvis siste oppgave var vist og svar sjekket -> gå til neste
-        _spmIndeks.value = _spmIndeks.value + 1
+        _spmIndeks.value++
+
         if (_spmIndeks.value >= selectedIndices.size) {
             _spillOver.value = true
             _oppgaveTekst.value = ""
+
+            if (selectedIndices.size == alleOppgaver.size) {
+                _ingenFlereSporsmal.value = true
+                _oppgaveTekst.value = context.getString(R.string.alle_oppgaver_brukt)
+                _tilbakemelding.value = null
+                _inputTekst.value = ""
+            }
         } else {
             finnSpm()
         }
     }
+
 
     fun avsluttSpill() {
         _spillOver.value = true
         _avsluttetManuelt.value = true
     }
 
-    // Returnerer antall gjenværende oppgaver
     fun remaining(): Int {
-        return (selectedIndices.size - _spmIndeks.value)
+        return if (_ingenFlereSporsmal.value) {
+            0
+        } else {
+            (selectedIndices.size - _spmIndeks.value).coerceAtLeast(0)
+        }
     }
 }
